@@ -1,3 +1,7 @@
+/*
+ * QNX: qcc -g -Wc,-Wall -l socket -o netmask_check netmask_check.c
+ * Ubuntu: cc -Wall -g -l socket -o netmask_check netmask_check.c
+ */
 #include <errno.h>
 #include <stdio.h>
 #include <stdint.h>
@@ -5,7 +9,13 @@
 #include <arpa/inet.h>
 
 /************************************************************* CHECK_MASK() ***/
-
+/*
+ * The function checks whether a netmask is valid.
+ *
+ * \param mask the mask in a dot format
+ *
+ * \return 0 - mask valid, -1 - mask invalid
+ */
 static int check_mask( char *mask ) {
 	struct in_addr   netmask;
 	uint32_t         maskl;
@@ -46,16 +56,17 @@ static int check_mask( char *mask ) {
 		}
 	}
 
-	return EOK;
+	return 0;
 }
 
 /******************************************************************* MAIN() ***/
 
 int main( int argc, char *argv[] ) {
-	if( EOK == check_mask( argv[ 1 ] ))
+	if( 0 == check_mask( argv[ 1 ] ))
 		printf( "The mask is valid\n" );
 	else
 		printf( "The mask is not valid\n" );
 
-	return EOK;
+	return 0;
 }
+
